@@ -46,27 +46,54 @@
 		</nav>
 	</div>
 
-	<div class="container-sm mt-5" style="max-width: 75%;">
-		<form method="POST" enctype="multipart/form-data"
-			action="/uploadQrCode">
-			<div class="mb-3">
-				<label for="qrCodeFile" class="form-label">File Input</label> <input
-					class="form-control" type="file" id="qrCodeFile" name="qrCodeFile"
-					required="true" aria-describedby="textHelp"> <small
-					id="textHelp" class="form-text text-muted">Choose your QR
-					code image file to upload.</small>
-			</div>
-			<button type="submit" class="btn btn-primary">Upload</button>
-		</form>
-		<th:block th:unless="${#strings.isEmpty(qrContent)}">
-			<div class="mt-5" id="qrCodeContainer">
-				<div>
-					<h3>
-						QR Code result: <span th:text="${qrContent}"></span>
-					</h3>
-				</div>
-			</div>
-		</th:block>
+	<div class="col">
+		<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+		<h1><a href="https://learncodeweb.com/phonegap/how-to-use-instascan-an-html5-qr-scanner/">How to use Instascan an HTML5 QR scanner</a></h1>
+		<div class="col-sm-12">
+			<video id="preview" class="p-1 border" style="width:100%;"></video>
+		</div>
+		<script type="text/javascript">
+			var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
+			scanner.addListener('scan',function(content){
+				alert(content);
+				//window.location.href=content;
+			});
+			Instascan.Camera.getCameras().then(function (cameras){
+				if(cameras.length>0){
+					scanner.start(cameras[0]);
+					$('[name="options"]').on('change',function(){
+						if($(this).val()==1){
+							if(cameras[0]!=""){
+								scanner.start(cameras[0]);
+							}else{
+								alert('No Front camera found!');
+							}
+						}else if($(this).val()==2){
+							if(cameras[1]!=""){
+								scanner.start(cameras[1]);
+							}else{
+								alert('No Back camera found!');
+							}
+						}
+					});
+				}else{
+					console.error('No cameras found.');
+					alert('No cameras found.');
+				}
+			}).catch(function(e){
+				console.error(e);
+				alert(e);
+			});
+		</script>
+		<div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
+			<label class="btn btn-primary active">
+				<input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
+			</label>
+			<label class="btn btn-secondary">
+				<input type="radio" name="options" value="2" autocomplete="off"> Back Camera
+			</label>
+		</div>
+	</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
