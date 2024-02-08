@@ -17,11 +17,6 @@
         <a class="navbar-brand" href="#"> <img src="../img/favicon.png"
                                                width="30" height="30"> QR Code Generator
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarNav" aria-controls="navbarNav"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="/usuaris">
                 <i class="fas fa-user"></i> Usuaris
@@ -29,7 +24,7 @@
             <a class="nav-item nav-link" href="/partits">
                 <i class="fas fa-gamepad"></i> Partits
             </a>
-            <li class="nav-item active"><a class="nav-link" href="/"><i class="fas fa-ticket-alt"></i> Tickets</a></li>
+            <li class="nav-item active"><a class="nav-link" href="/tickets"><i class="fas fa-ticket-alt"></i> Tickets</a></li>
             <li class="nav-item"><a class="nav-link" href="/decode"><i class="fas fa-qrcode"></i> Scanner</a></li>
         </div>
     </nav>
@@ -50,6 +45,7 @@
                     <th>Hora</th>
                     <th>Lloc</th>
                     <th>Aforo Maxim</th>
+                    <th>Opcions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -60,6 +56,11 @@
                     <td th:text="${partit.hora}"></td>
                     <td th:text="${partit.lloc}"></td>
                     <td th:text="${partit.aforoMaxim}"></td>
+                    <td>
+                        <a th:href="@{/Comprartickets/{id}(id=${partit.id})}" class="btn btn-primary">
+                            <i class="fas fa-ticket-alt"></i> Comprar
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
