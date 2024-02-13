@@ -18,18 +18,20 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            margin: 0; /* Añade esta línea para quitar el margen predeterminado del cuerpo */
         }
 
         header {
-            background-color: rgba(0, 0, 0, 0); /* Fondo completamente transparente */
+            background-color: rgba(0, 0, 0, 0.5); /* Cambia el valor de la opacidad según prefieras */
             color: #fff;
             text-align: center;
             width: 100%;
+            height: 7%;
             padding: 10px 10px;
             position: fixed;
             z-index: 1000;
+            transition: top 0.3s; /* Agrega una transición suave */
         }
-
 
         .navbar-nav a {
             color: #fff;
@@ -38,24 +40,27 @@
         .navbar-nav a:hover {
             color: #eadb0a;
         }
+
         .content-container {
-            margin-top: 70px;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
         }
-        #h1lletra {
-            margin-top: 5px;
-        }
+
         header .container {
-            max-width: 90%; /* Cambiar según tu preferencia */
+            max-width: 40%; /* Cambiar según tu preferencia */
         }
 
         h1 {
             font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+            position: absolute;
+            z-index: 1000; /* Asegura que el título esté encima del fondo */
+            margin-top: 10px; /* Ajusta según tu preferencia */
         }
 
         .background-image {
+            object-fit: cover;
             width: 100vw;
             height: 100vh;
             position: fixed;
@@ -72,10 +77,14 @@
             transition: filter 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
             border: 3px solid #d6d6d3ba !important;
             background-color: #151515b6;
+            margin-top: 100px; /* Ajusta el valor según tu preferencia */
+
         }
+
         @media (max-width: 767px) {
             .partido {
                 width: 100%;
+
             }
         }
 
@@ -84,6 +93,7 @@
             background-color: #151515ea;
             transform: scale(1.05);
             border: 3px solid #eadb0a !important;
+
         }
 
         .partido img {
@@ -92,6 +102,7 @@
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
             object-fit: cover;
+
         }
 
         .partido-info {
@@ -100,8 +111,7 @@
             justify-content: center;
             padding: 20px;
             text-align: center;
-            color: #fff;
-        }
+            color: #fff;}
 
         p {
             margin: 5px 0;
@@ -125,7 +135,7 @@
 </head>
 
 <body>
-<header>
+<header id="header">
     <div class="container" style="max-width: 75%;">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="#">Inici</a>
@@ -150,14 +160,11 @@
             </div>
         </nav>
     </div>
-    <div id="h1lletra" style="text-align: center;">
-        <h1>Partits <i class="fa-solid fa-person-running"></i></h1>
-    </div>
 </header>
-
 <div class="content-container">
     <img class="background-image" src='https://santaeulariadesriu.com/images/instalacions-esportives-pdv-0.jpg' alt='Fondo desenfocado'>
 
+    <h1>Partits <i class="fa-solid fa-person-running"></i></h1>
     <div th:each="partit : ${partits}" class="partido">
         <img src="https://img3.wallspic.com/crops/8/3/6/0/20638/20638-estadio_olmpico-ftbol_estadio-3840x2160.jpg" alt="Partido por defecto">
         <div class="partido-info">
@@ -174,10 +181,23 @@
 </div>
 
 <!-- Bootstrap JS, Popper.js, and jQuery -->
+<script>
+    // Función para mostrar u ocultar la barra de navegación al desplazarse
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("header").style.top = "0";
+        } else {
+            document.getElementById("header").style.top = "-70px";
+        }
+        prevScrollpos = currentScrollPos;
+    }
+</script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-PJfs/PB2XzvFOZS4NWmFkIUei1YC0Kx5YUY6C/Pg01Bf6zmtZ7CBI4XGPJ6jcMsC" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyewS9QpR4jk5CYNL2X+qDh4On+JERbEx" crossorigin="anonymous"></script>
-
 </body>
 
 </html>
