@@ -161,7 +161,7 @@
     <div th:each="partit : ${partits}" class="partido">
         <img src="https://img3.wallspic.com/crops/8/3/6/0/20638/20638-estadio_olmpico-ftbol_estadio-3840x2160.jpg" alt="Partido por defecto">
         <div class="partido-info">
-            <h2 th:text="${partit.nombre}"></h2>
+            <h2 th:text="${partit.local} + ' Vs ' + ${partit.visitant}"></h2>
             <p th:text="'Fecha: ' + ${partit.data}"></p>
             <p th:text="'Estadio: ' + ${partit.lloc}"></p>
             <p th:text="'Hora: ' + ${partit.hora}"></p>

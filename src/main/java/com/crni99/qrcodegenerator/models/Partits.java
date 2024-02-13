@@ -26,8 +26,12 @@ public class Partits {
     @Column(name = "aforo_maxim")
     private Integer aforoMaxim;
     @Basic
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "local")
+    private String local;
+
+    @Basic
+    @Column(name = "visitant")
+    private String visitant;
 
     @Basic
     @Column(name = "preu")
@@ -81,12 +85,20 @@ public class Partits {
         this.aforoMaxim = aforoMaxim;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getLocal() {
+        return local;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getVisitant() {
+        return visitant;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public void setVisitant(String visitant) {
+        this.local = visitant;
     }
 
     @Override
@@ -101,7 +113,8 @@ public class Partits {
         if (hora != null ? !hora.equals(partits.hora) : partits.hora != null) return false;
         if (lloc != null ? !lloc.equals(partits.lloc) : partits.lloc != null) return false;
         if (aforoMaxim != null ? !aforoMaxim.equals(partits.aforoMaxim) : partits.aforoMaxim != null) return false;
-        if (nombre != null ? !nombre.equals(partits.nombre) : partits.nombre != null) return false;
+        if (local != null ? !local.equals(partits.local) : partits.local != null) return false;
+        if (visitant != null ? !visitant.equals(partits.visitant) : partits.visitant != null) return false;
 
         return true;
     }
@@ -113,7 +126,8 @@ public class Partits {
         result = 31 * result + (hora != null ? hora.hashCode() : 0);
         result = 31 * result + (lloc != null ? lloc.hashCode() : 0);
         result = 31 * result + (aforoMaxim != null ? aforoMaxim.hashCode() : 0);
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
+        result = 31 * result + (local != null ? local.hashCode() : 0);
+        result = 31 * result + (visitant != null ? visitant.hashCode() : 0);
         return result;
     }
 
