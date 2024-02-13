@@ -69,24 +69,21 @@ public class MainController {
 		Tickets ticket = ticketsRepository.findByTicketId(ticketId);
 
 		if (ticket != null) {
-			if (ticket != null) {
-				Partits partits = partitsRepository.findById(ticket.getPartitId()).orElse(null);
-				System.out.println(partits.getData());
-				System.out.println(currentDate);
+			Partits partits = partitsRepository.findById(ticket.getPartitId()).orElse(null);
+			System.out.println(partits.getData());
+			System.out.println(currentDate);
 
-				if (partits != null) {
-					if (partits.getData().compareTo(date) > 0) {
-						System.out.println("El Partit no és avui");
-						return false;
-					} else {
-						System.out.println("El Partit és avui");
-						return true;
-					}
+			if (partits != null) {
+				if (partits.getData().equals(date)) {
+					System.out.println("El Partit és avui");
+					return true;
 				} else {
+					System.out.println("El Partit no és avui");
+					System.out.println("Data del partit: " + partits.getData());
 					return false;
 				}
 			} else {
-				System.out.println("Error: TicketId no válido");
+				return false;
 			}
 		} else {
 			System.out.println("Error: Ticket no encontrado");

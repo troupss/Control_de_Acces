@@ -3,6 +3,7 @@ package com.crni99.qrcodegenerator.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Collection;
@@ -27,6 +28,10 @@ public class Partits {
     @Basic
     @Column(name = "nombre")
     private String nombre;
+
+    @Basic
+    @Column(name = "preu")
+    private BigDecimal preu;
     @JsonIgnore
     @OneToMany(mappedBy = "partitsByPartitId")
     private Collection<Tickets> ticketsById;
@@ -38,7 +43,12 @@ public class Partits {
     public void setId(int id) {
         this.id = id;
     }
-
+    public BigDecimal getPreu() {
+        return preu;
+    }
+    public void setPreu(BigDecimal preu) {
+        this.preu = preu;
+    }
     public Date getData() {
         return data;
     }
