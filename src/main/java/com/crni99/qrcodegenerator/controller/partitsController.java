@@ -8,6 +8,7 @@ import com.crni99.qrcodegenerator.repository.TicketsRepository;
 import com.crni99.qrcodegenerator.service.QRCodeService;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,16 +32,14 @@ public class partitsController {
     private PasswordGenerator passwordGenerator;
     private final TicketsRepository ticketsRepository;
 
+    @Value("${stripe.apikey}")
+    String stipeKey;
 
     public partitsController(QRCodeService qrCodeService,
                              TicketsRepository ticketsRepository) {
         this.qrCodeService = qrCodeService;
         this.ticketsRepository = ticketsRepository;
     }
-
-
-
-
     @GetMapping("/partits")
     public String getPartits(Model model, @RequestParam(name = "error", required = false) String error) {
         List partits = repository.findAll();
