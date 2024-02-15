@@ -16,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
@@ -70,6 +72,7 @@ public class partitsController {
             newTicket.setTicketId(complicatedString);
             newTicket.setUserDni(DNI);
             newTicket.setPartitId(id);
+            newTicket.setDataCompra((Timestamp) new Date());
 
 
             ticketsRepository.save(newTicket);
