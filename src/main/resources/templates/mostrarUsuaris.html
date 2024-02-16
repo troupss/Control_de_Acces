@@ -65,30 +65,42 @@
         z-index: 1000; /* Asegura que el título esté encima del fondo */
         margin-top: 10px; /* Ajusta según tu preferencia */
     }
+    .navbar {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 </style>
 
 <body>
 <header id="header">
     <div class="container" style="max-width: 75%;">
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark">
             <a class="navbar-brand" href="#">Inici</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav1"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav1">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="/usuaris">
-                        <i class="fas fa-user"></i> Usuaris
-                    </a>
-                    <a class="nav-item nav-link" href="/partits">
-                        <i class="fas fa-gamepad"></i> Partits
-                    </a>
-                    <a class="nav-item nav-link" href="/tickets">
-                        <i class="fas fa-ticket-alt"></i> Tickets
-                    </a>
-                    <a class="nav-item nav-link" href="/decode">
-                        <i class="fas fa-qrcode"></i> Scanner
-                    </a>
+                    <li>
+                        <a class="nav-link" href="/usuaris">
+                            <i class="fas fa-user"></i> Usuaris
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="/partits">
+                            <i class="fas fa-gamepad"></i> Partits
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/tickets">
+                            <i class="fas fa-ticket-alt"></i> Tickets
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/decode">
+                            <i class="fas fa-qrcode"></i> Scanner
+                        </a>
+                    </li>
                 </div>
             </div>
         </nav>
@@ -107,26 +119,28 @@
                 <p th:text="${error}"></p>
             </div>
 
-            <table id="table1" class="table table-bordered" style="width: 100%">
-                <thead>
-                <tr>
-                    <th>DNI</th>
-                    <th>Nom</th>
-                    <th>Cognoms</th>
-                    <th>Correu</th>
-                    <th>Telefono</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="usuari : ${usuaris}">
-                    <td th:text="${usuari.dni}"></td>
-                    <td th:text="${usuari.nom}"></td>
-                    <td th:text="${usuari.cognom}"></td>
-                    <td th:text="${usuari.email}"></td>
-                    <td th:text="${usuari.numeroTelefono}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="table1" class="table table-bordered" style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>DNI</th>
+                        <th>Nom</th>
+                        <th>Cognoms</th>
+                        <th>Correu</th>
+                        <th>Telefono</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="usuari : ${usuaris}">
+                        <td th:text="${usuari.dni}"></td>
+                        <td th:text="${usuari.nom}"></td>
+                        <td th:text="${usuari.cognom}"></td>
+                        <td th:text="${usuari.email}"></td>
+                        <td th:text="${usuari.numeroTelefono}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <script>
                 new DataTable('#table1');
