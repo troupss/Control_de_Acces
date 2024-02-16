@@ -10,26 +10,96 @@
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+<style>
+    header {
+        background-color: rgba(0, 0, 0, 0.5); /* Cambia el valor de la opacidad según prefieras */
+        color: #fff;
+        text-align: center;
+        width: 100%;
+        height: 7%;
+        padding: 10px 10px;
+        position: fixed;
+        z-index: 1000;
+        transition: top 0.3s; /* Agrega una transición suave */
+    }
 
+    .navbar-nav a {
+        color: #fff;
+    }
+
+    .navbar-nav a:hover {
+        color: #eadb0a;
+    }
+
+    .content-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    header .container {
+        max-width: 40%; /* Cambiar según tu preferencia */
+    }
+
+    h1 {
+        font-family: 'Times New Roman', Times, serif;
+        text-align: center;
+        position: absolute;
+        z-index: 1000; /* Asegura que el título esté encima del fondo */
+        margin-top: 10px; /* Ajusta según tu preferencia */
+    }
+
+    .background-image {
+        object-fit: cover;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        filter: blur(5px);
+        z-index: -1;
+    }
+    h1 {
+        font-family: 'Times New Roman', Times, serif;
+        text-align: center;
+        position: absolute;
+        z-index: 1000; /* Asegura que el título esté encima del fondo */
+        margin-top: 10px; /* Ajusta según tu preferencia */
+    }
+</style>
 
 <body>
-<div class="container" style="max-width: 75%;">
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="#"> <img src="../img/favicon.png"
-                                               width="30" height="30"> QR Code Generator
-        </a>
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" href="/usuaris">
-                <i class="fas fa-user"></i> Usuaris
-            </a>
-            <a class="nav-item nav-link" href="/partits">
-                <i class="fas fa-gamepad"></i> Partits
-            </a>
-            <li class="nav-item active"><a class="nav-link" href="/tickets"><i class="fas fa-ticket-alt"></i> Tickets</a></li>
-            <li class="nav-item"><a class="nav-link" href="/decode"><i class="fas fa-qrcode"></i> Scanner</a></li>
-        </div>
-    </nav>
+<header id="header">
+    <div class="container" style="max-width: 75%;">
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="#">Inici</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav1">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="/usuaris">
+                        <i class="fas fa-user"></i> Usuaris
+                    </a>
+                    <a class="nav-item nav-link" href="/partits">
+                        <i class="fas fa-gamepad"></i> Partits
+                    </a>
+                    <a class="nav-item nav-link" href="/tickets">
+                        <i class="fas fa-ticket-alt"></i> Tickets
+                    </a>
+                    <a class="nav-item nav-link" href="/decode">
+                        <i class="fas fa-qrcode"></i> Scanner
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="content-container">
+    <img class="background-image" src='https://t4.ftcdn.net/jpg/06/20/79/97/360_F_620799725_sZID7kAlK4fNnlEYSCB0OTgpPiNhVrOP.jpg' alt='Fondo desenfocado'>
+    <h1>Usuaris <i class="fa-solid fa-users"></i></h1>
 </div>
+
+<br><br>
 <div class="container">
     <div class="row">
         <div class="col-lg-10 mt-5 mb-5">
