@@ -84,6 +84,10 @@
 			.navbar {
 				background-color: rgba(0, 0, 0, 0.5);
 			}
+
+			#camara {
+				min-width: 131vh;
+			}
 	</style>
 
 </head>
@@ -105,7 +109,7 @@
 					</li>
 					<li>
 						<a class="nav-link" href="/partits">
-							<i class="fas fa-gamepad"></i> Partits
+							<i class="fa-solid fa-trophy"></i> Partits
 						</a>
 					</li>
 					<li class="nav-item active">
@@ -135,7 +139,7 @@
 				<p th:text="${error}"></p>
 			</div>
 
-	<div class="col">
+	<div class="col" id="camara">
 		<form id="qrForm" action="/uploadQrCode" method="POST" enctype="multipart/form-data">
 			<input type="hidden" id="qrContentInput" name="qrContent" value="">
 		</form>
