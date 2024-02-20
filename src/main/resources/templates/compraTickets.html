@@ -88,7 +88,6 @@
         }
 
         .partido:hover {
-            filter: blur(0px);
             background-color: #151515ea;
             transform: scale(1.05);
             border: 3px solid #eadb0a !important;
@@ -210,7 +209,10 @@
                 <input type="hidden" id="amount" class="amountInput" th:value="${partits.preu}" th:name="amount"/>
                 <input type="hidden" id="productName" class="productNameInput" th:value="${partits.id}" th:name="productName"/>
                 <br><br>
-                <input type="submit" value="Confirmar Compra" class="comprarBtn" />
+
+                <button type="submit" class="comprarBtn">
+                    <i class="fa-regular fa-credit-card"></i> Confirmar Compra
+                </button>
             </form>
         </div>
     </div>
