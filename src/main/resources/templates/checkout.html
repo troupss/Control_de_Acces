@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<html lang="ca" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Aceptar un pago</title>
-    <meta name="description" content="Una demostración de un pago en Stripe" />
+    <title>Acceptar un pagament</title>
+    <meta name="description" content="Una demostració d'un pagament a Stripe" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="checkout.css" />
     <script src="https://js.stripe.com/v3/"></script>
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -21,7 +22,10 @@
             align-content: center;
             height: 100vh;
             width: 100vw;
+            background-color: #1f1f1f; /* Color de fondo oscuro */
+            color: #1f1f1f; /* Color de text blanc */
         }
+
 
         form {
             width: 30vw;
@@ -31,6 +35,13 @@
             0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
             border-radius: 7px;
             padding: 40px;
+            background-color:black;
+            color: white;
+
+        }
+
+        #payment-form {
+            color: white;
         }
 
         .hidden {
@@ -49,7 +60,7 @@
             margin-bottom: 24px;
         }
 
-        /* Botones y enlaces */
+        /* Botons i enllaços */
         button {
             background: #5469d4;
             font-family: Arial, sans-serif;
@@ -73,7 +84,7 @@
             cursor: default;
         }
 
-        /* spinner/processing state, errors */
+        /* spinner/estat de processament, errors */
         .spinner,
         .spinner:before,
         .spinner:after {
@@ -149,37 +160,45 @@
                 min-width: initial;
             }
         }
+        .background-image {
+            object-fit: cover;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            filter: blur(5px);
+            z-index: -1;
+        }
+
+
     </style>
     <script th:inline="javascript">
-
         /*<![CDATA[*/
-
         var publicKey = /*[[${publicKey}]]*/ null;
         var amount = /*[[${amount}]]*/ null;
         var email = /*[[${email}]]*/ null;
         var productName = /*[[${productName}]]*/ null;
-
         /*]]>*/
     </script>
-
     <script src="checkout.js" defer></script>
 </head>
 <body>
-<!-- Mostrar un formulario de pago -->
+<img class="background-image" src='https://t4.ftcdn.net/jpg/06/20/79/97/360_F_620799725_sZID7kAlK4fNnlEYSCB0OTgpPiNhVrOP.jpg' alt='Fondo desenfocado'>
+<!-- Formulari per a acceptar un pagament -->
 <form id="payment-form">
-    <span>Estás a punto de realizar un pago de: </span>
+    <span>Estàs a punt de realitzar un pagament de: </span>
     <span th:text="*{amount}"></span>
     <span>EUR</span>
     <br><br>
     <div id="link-authentication-element">
-        <!--Stripe.js inyecta el Elemento de Autenticación de Enlace-->
+        <!-- Stripe.js injectarà l'Element d'Autenticació d'Enllaç -->
     </div>
     <div id="payment-element">
-        <!--Stripe.js inyecta el Elemento de Pago-->
+        <!-- Stripe.js injectarà l'Element de Pagament -->
     </div>
     <button id="submit">
         <div class="spinner hidden" id="spinner"></div>
-        <span id="button-text">Pagar ahora</span>
+        <span id="button-text">Pagar ara</span>
     </button>
     <div id="payment-message" class="hidden"></div>
 </form>
