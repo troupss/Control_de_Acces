@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
 <head>
     <meta charset="utf-8" />
-    <title>Accept a payment</title>
-    <meta name="description" content="A demo of a payment on Stripe" />
+    <title>Aceptar un pago</title>
+    <meta name="description" content="Una demostración de un pago en Stripe" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="checkout.css" />
     <script src="https://js.stripe.com/v3/"></script>
@@ -49,7 +49,7 @@
             margin-bottom: 24px;
         }
 
-        /* Buttons and links */
+        /* Botones y enlaces */
         button {
             background: #5469d4;
             font-family: Arial, sans-serif;
@@ -165,28 +165,29 @@
     <script src="checkout.js" defer></script>
 </head>
 <body>
-<!-- Display a payment form -->
+<!-- Mostrar un formulario de pago -->
 <form id="payment-form">
-    <span>You are about to make a payment of: </span>
+    <span>Estás a punto de realizar un pago de: </span>
     <span th:text="*{amount}"></span>
     <span>EUR</span>
+    <br><br>
     <div id="link-authentication-element">
-        <!--Stripe.js injects the Link Authentication Element-->
+        <!--Stripe.js inyecta el Elemento de Autenticación de Enlace-->
     </div>
     <div id="payment-element">
-        <!--Stripe.js injects the Payment Element-->
+        <!--Stripe.js inyecta el Elemento de Pago-->
     </div>
     <button id="submit">
         <div class="spinner hidden" id="spinner"></div>
-        <span id="button-text">Pay now</span>
+        <span id="button-text">Pagar ahora</span>
     </button>
     <div id="payment-message" class="hidden"></div>
 </form>
 <script>
-    // This is your test publishable API key.
+    // Este es tu clave de API publicable de prueba.
     const stripe = Stripe(publicKey);
 
-    // The items the customer wants to buy
+    // Los artículos que el cliente desea comprar
     const request = {
         amount: amount,
         email: email,
@@ -203,7 +204,7 @@
         .addEventListener("submit", handleSubmit);
 
     let emailAddress = '';
-    // Fetches a payment intent and captures the client secret
+    // Obtiene un intento de pago y captura el secreto del cliente
 
     let paymentIntentID = '';
     async function initialize() {
@@ -251,27 +252,27 @@
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                // Make sure to change this to your payment completion page
+                // Asegúrate de cambiar esto por tu página de finalización de pago
                 return_url: "https://dashboard.stripe.com/test/payments/"+paymentIntentID,
                 receipt_email: emailAddress
             },
         });
 
-        // This point will only be reached if there is an immediate error when
-        // confirming the payment. Otherwise, your customer will be redirected to
-        // your `return_url`. For some payment methods like iDEAL, your customer will
-        // be redirected to an intermediate site first to authorize the payment, then
-        // redirected to the `return_url`.
+        // Este punto solo se alcanzará si hay un error inmediato al
+        // confirmar el pago. De lo contrario, tu cliente será redirigido a
+        // tu `return_url`. Para algunos métodos de pago como iDEAL, tu cliente
+        // será redirigido primero a un sitio intermedio para autorizar el pago, luego
+        // redirigido a la `return_url`.
         if (error.type === "card_error" || error.type === "validation_error") {
             showMessage(error.message);
         } else {
-            showMessage("An unexpected error occurred.");
+            showMessage("Se produjo un error inesperado.");
         }
 
         setLoading(false);
     }
 
-    // Fetches the payment intent status after payment submission
+    // Obtiene el estado del intento de pago después del envío del pago
     async function checkStatus() {
         const clientSecret = new URLSearchParams(window.location.search).get(
             "payment_intent_client_secret"
@@ -285,21 +286,21 @@
 
         switch (paymentIntent.status) {
             case "succeeded":
-                showMessage("Payment succeeded!");
+                showMessage("¡Pago exitoso!");
                 break;
             case "processing":
-                showMessage("Your payment is processing.");
+                showMessage("Tu pago está siendo procesado.");
                 break;
             case "requires_payment_method":
-                showMessage("Your payment was not successful, please try again.");
+                showMessage("Tu pago no fue exitoso, por favor inténtalo de nuevo.");
                 break;
             default:
-                showMessage("Something went wrong.");
+                showMessage("Algo salió mal.");
                 break;
         }
     }
 
-    // ------- UI helpers -------
+    // ------- Ayudantes de interfaz de usuario -------
 
     function showMessage(messageText) {
         const messageContainer = document.querySelector("#payment-message");
@@ -313,10 +314,10 @@
         }, 4000);
     }
 
-    // Show a spinner on payment submission
+    // Muestra un spinner al enviar el pago
     function setLoading(isLoading) {
         if (isLoading) {
-            // Disable the button and show a spinner
+            // Desactiva el botón y muestra un spinner
             document.querySelector("#submit").disabled = true;
             document.querySelector("#spinner").classList.remove("hidden");
             document.querySelector("#button-text").classList.add("hidden");
