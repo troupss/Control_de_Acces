@@ -47,6 +47,10 @@
           </div>
           <form id="loginForm" action="/iniciarSesion" method="post" onsubmit="return validarFormulario()">
             <div class="form-group mb-3">
+              <label for="dni">DNI:</label>
+              <input type="text" class="form-control" id="dni" name="dni" required>
+            </div>
+            <div class="form-group mb-3">
               <label for="email">Correo:</label>
               <input type="email" class="form-control" id="email" name="email" required>
             </div>
@@ -67,8 +71,18 @@
 </div>
 <script>
   function validarFormulario() {
-    // Aquí puedes agregar la lógica de validación del formulario de inicio de sesión si es necesario
-    return true; // Retorna true por defecto para permitir el envío del formulario
+    var dni = document.getElementById("dni").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    // Aquí puedes realizar la validación comparando los valores con los de la base de datos
+    // Por ejemplo, puedes enviar una solicitud al servidor para verificar si existen coincidencias
+
+    // Si los valores coinciden con los de la base de datos, puedes permitir el inicio de sesión
+    // return true; // Retorna true para permitir el envío del formulario
+    // De lo contrario, puedes mostrar un mensaje de error y evitar el envío del formulario
+    alert("Esta funcionalidad aún no está implementada. Por favor, inténtalo más tarde.");
+    return false;
   }
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -4,15 +4,13 @@ import com.crni99.qrcodegenerator.models.Usuaris;
 import com.crni99.qrcodegenerator.repository.UsuarisRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 public class usuariController {
-    private UsuarisRepository repository;
+    private final UsuarisRepository repository;
 
     public usuariController(UsuarisRepository repository) {
         this.repository = repository;
@@ -20,11 +18,12 @@ public class usuariController {
 
     @GetMapping("/usuaris")
     public String getUsuaris(Model model, @RequestParam(name = "error", required = false) String error) {
-        List usuaris = repository.findAll();
+        List<Usuaris> usuaris = repository.findAll();
         model.addAttribute("usuaris", usuaris);
         model.addAttribute("error", error);
         return "mostrarUsuaris";
     }
+
     @GetMapping("/registrar")
     public String mostrarFormularioAgregar(Model model) {
         model.addAttribute("usuari", new Usuaris());
@@ -43,14 +42,18 @@ public class usuariController {
     }
 
     @PostMapping("/iniciarSesion")
-    public String iniciarSesion(@RequestParam("email") String email, @RequestParam("password") String password) {
-        // Aquí deberías implementar la lógica para verificar el inicio de sesión
-        // Por ejemplo, buscar el usuario en la base de datos por el correo electrónico y verificar la contraseña
-
-        // Suponiendo que la verificación de inicio de sesión es exitosa, puedes redirigir a una página de inicio
-        return "redirect:/inicio";
+    public String iniciarSesion(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+        Usuaris usuario = repository.findByEmailAndPassword(email, password);
+        if (usuario != null) {
+            // Si las credenciales son correctas, puedes redirigir a una página de inicio
+            return "redirect:/inicio";
+        } else {
+            // Si las credenciales son incorrectas, mostrar un mensaje de error
+            model.addAttribute("error", "Credenciales incorrectas, por favor intente nuevamente.");
+            return "redirect:/loguejar?error";
+        }
     }
-
 }
+
 
 
