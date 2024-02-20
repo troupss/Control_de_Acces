@@ -88,8 +88,12 @@
 			<artifactId>stripe-java</artifactId>
 			<version>24.15.0</version>
 		</dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>
