@@ -24,7 +24,7 @@ public class usuariController {
         return "mostrarUsuaris";
     }
 
-    @GetMapping("/registrar")
+    @GetMapping("/register")
     public String mostrarFormularioAgregar(Model model) {
         model.addAttribute("usuari", new Usuaris());
         return "registrarUsuaris";
@@ -36,22 +36,24 @@ public class usuariController {
         return "redirect:/usuaris";
     }
 
-    @GetMapping("/loguejar")
+    @GetMapping("/login")
     public String mostrarFormularioLogin() {
         return "loguejarUsuaris";
     }
 
     @PostMapping("/iniciarSesion")
-    public String iniciarSesion(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
-        Usuaris usuario = repository.findByEmailAndPassword(email, password);
+    public String iniciarSesion(@RequestParam("dni") String dni, @RequestParam("password") String password, Model model) {
+        System.out.println(dni);
+        System.out.println(password);
+
+        Usuaris usuario = repository.findByDni(dni);
         if (usuario != null) {
-            // Si las credenciales son correctas, puedes redirigir a una página de inicio
-            return "redirect:/inicio";
-        } else {
-            // Si las credenciales son incorrectas, mostrar un mensaje de error
-            model.addAttribute("error", "Credenciales incorrectas, por favor intente nuevamente.");
-            return "redirect:/loguejar?error";
+            if (usuario.getPassword().equals(password)) {
+                return "redirect:/usuaris";
+            }
         }
+        model.addAttribute("error", "Usuario o contraseña incorrectos");
+        return "loguejarUsuaris";
     }
 }
 
