@@ -86,7 +86,7 @@
 			}
 
 			#camara {
-				min-width: 131vh;
+				min-width: 132vh;
 			}
 	</style>
 
@@ -104,7 +104,7 @@
 				<div class="navbar-nav">
 					<li>
 						<a class="nav-link" href="/usuaris">
-							<i class="fas fa-user"></i> Usuaris
+							<i class="fa-solid fa-user-tie"></i> Socis
 						</a>
 					</li>
 					<li>
@@ -129,7 +129,7 @@
 </header>
 <div class="content-container">
 	<img class="background-image" src='https://t4.ftcdn.net/jpg/06/20/79/97/360_F_620799725_sZID7kAlK4fNnlEYSCB0OTgpPiNhVrOP.jpg' alt='Fondo desenfocado'>
-	<h1>Usuaris <i class="fa-solid fa-users"></i></h1>
+	<h1>Escanejar QR <i class="fa-solid fa-barcode"></i></h1>
 </div>
 <br><br>
 <div class="container">
@@ -144,7 +144,7 @@
 			<input type="hidden" id="qrContentInput" name="qrContent" value="">
 		</form>
 		<div class="ticket-container">
-			<h2>Estado de la Entrada: </h2>
+			<h2>Estat de la Entrada: </h2>
 
 			<!-- Entrada válida -->
 			<div th:if="${qrValido}" class="valid-ticket">
