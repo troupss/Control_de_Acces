@@ -204,8 +204,8 @@
             <p th:text="'Precio: ' + ${partit.preu} + '€'"></p>
             <form id="miFormulario" class="compradorForm" th:action="@{'/validar-pago/' + ${partits.preu}}" th:object="${request}" method="post">
                 <label for="email" class="emailLabel">Correo Electrónico:</label>
+                <br>
                 <input type="text" id="email" class="emailInput" th:field="*{email}" required/>
-
                 <input type="hidden" id="amount" class="amountInput" th:value="${partits.preu}" th:name="amount"/>
                 <input type="hidden" id="productName" class="productNameInput" th:value="${partits.id}" th:name="productName"/>
                 <br><br>
