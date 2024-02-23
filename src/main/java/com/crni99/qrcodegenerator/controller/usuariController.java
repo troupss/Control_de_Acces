@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -31,8 +32,11 @@ public class usuariController {
     }
 
     @PostMapping("/guardarUsuario")
-    public String guardarUsuario(Usuaris usuario) {
+    public String guardarUsuario(Usuaris usuario, HttpSession session) {
         repository.save(usuario);
+
+        session.setAttribute("usuarioLogueado", usuario);
+
         return "redirect:/usuaris";
     }
 
@@ -42,13 +46,12 @@ public class usuariController {
     }
 
     @PostMapping("/iniciarSesion")
-    public String iniciarSesion(@RequestParam("dni") String dni, @RequestParam("password") String password, Model model) {
-        System.out.println(dni);
-        System.out.println(password);
+    public String iniciarSesion(@RequestParam("dni") String dni, @RequestParam("password") String password, Model model, HttpSession session) {
 
         Usuaris usuario = repository.findByDni(dni);
         if (usuario != null) {
             if (usuario.getPassword().equals(password)) {
+                session.setAttribute("usuarioLogueado", usuario);
                 return "redirect:/usuaris";
             }
         }

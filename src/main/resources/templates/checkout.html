@@ -272,7 +272,10 @@
             elements,
             confirmParams: {
                 // Asegúrate de cambiar esto por tu página de finalización de pago
-                return_url: "https://dashboard.stripe.com/test/payments/"+paymentIntentID,
+
+                //CANVIAR SI ESTA PENJAT!
+
+                return_url: "http://localhost:8080/generarTickets",
                 receipt_email: emailAddress
             },
         });

@@ -171,10 +171,13 @@
         </nav>
     </div>
 </header>
+
+
 <div class="content-container">
     <img class="background-image" src='https://t4.ftcdn.net/jpg/06/20/79/97/360_F_620799725_sZID7kAlK4fNnlEYSCB0OTgpPiNhVrOP.jpg' alt='Fondo desenfocado'>
 
     <h1>Partits <i class="fa-solid fa-baseball"></i></h1>
+
     <div th:each="partit, iterStat : ${partits}" class="partido">
         <div class="partido-image">
             <img th:id="'imagen_' + ${iterStat.index}" src="#" alt="Partido por defecto">
@@ -189,6 +192,13 @@
                 <i class="fas fa-ticket-alt"></i> Comprar
             </a>
         </div>
+    </div>
+</div>
+
+<div class="bienvenido-container">
+    <div th:if="${session.usuarioLogueado != null}">
+        <p>Nom: <span th:text="${session.usuarioLogueado.nom}"></span></p>
+        <p>DNI: <span th:text="${session.usuarioLogueado.dni}"></span></p>
     </div>
 </div>
 
