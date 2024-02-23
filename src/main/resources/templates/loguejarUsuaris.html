@@ -54,6 +54,9 @@
               <label for="password">Contraseña:</label>
               <input type="password" class="form-control" id="password" name="password" required>
             </div>
+            <div id="error-msg" class="alert alert-danger d-none" role="alert">
+              Las credenciales introducidas no son correctas. Por favor, inténtalo de nuevo.
+            </div>
             <h class="text-center mt-3">¿No tienes cuenta? <a href="/register">Registrate</a></h>
             <div class="text-center mt-3">
               <button type="submit" class="btn btn-primary btn-login">
@@ -69,22 +72,22 @@
 <script>
   function validarFormulario() {
     var dni = document.getElementById("dni").value;
-    var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
 
-    // Aquí puedes realizar la validación comparando los valores con los de la base de datos
-    // Por ejemplo, puedes enviar una solicitud al servidor para verificar si existen coincidencias
+    console.log("DNI:", dni);
+    console.log("Password:", password);
 
-    // Si los valores coinciden con los de la base de datos, puedes permitir el inicio de sesión
-    // return true; // Retorna true para permitir el envío del formulario
-    // De lo contrario, puedes mostrar un mensaje de error y evitar el envío del formulario
-    alert("Esta funcionalidad aún no está implementada. Por favor, inténtalo más tarde.");
-    return false;
+    if (dni !== "dni" || password !== "password") {
+      document.getElementById("error-msg").classList.remove("d-none");
+      return false; // Evita el envío del formulario
+    }
+
+    // Si las credenciales son correctas, permitimos el envío del formulario
+    return true;
   }
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.16.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
-
 </html>
