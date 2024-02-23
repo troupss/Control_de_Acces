@@ -186,6 +186,9 @@
 <img class="background-image" src='https://t4.ftcdn.net/jpg/06/20/79/97/360_F_620799725_sZID7kAlK4fNnlEYSCB0OTgpPiNhVrOP.jpg' alt='Fondo desenfocado'>
 <!-- Formulari per a acceptar un pagament -->
 <form id="payment-form">
+    <input type="hidden" id="productName" name="productName" value="">
+    <input type="hidden" id="email" name="email" value="">
+
     <span>Estàs a punt de realitzar un pagament de: </span>
     <span th:text="*{amount}"></span>
     <span>EUR</span>
@@ -196,13 +199,24 @@
     <div id="payment-element">
         <!-- Stripe.js injectarà l'Element de Pagament -->
     </div>
-    <button id="submit">
+    <button id="submit" onclick="updateFormValues()">
         <div class="spinner hidden" id="spinner"></div>
         <span id="button-text">Pagar ara</span>
     </button>
     <div id="payment-message" class="hidden"></div>
 </form>
+
 <script>
+    function updateFormValues() {
+        var productNameValue = document.getElementById("productName").value;
+        var emailValue = document.getElementById("email").value;
+
+        document.getElementById("productName").value = productNameValue;
+        document.getElementById("email").value = emailValue;
+
+        // Ahora puedes enviar el formulario
+        document.getElementById("payment-form").submit();
+    }
     // Este es tu clave de API publicable de prueba.
     const stripe = Stripe(publicKey);
 

@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
@@ -67,24 +68,34 @@ public class partitsController {
         return "compraTickets";
     }
 
-    @PostMapping("/generarTickets")
-    public String generarTicket(@ModelAttribute Tickets tickets, @RequestParam String correo, @RequestParam String DNI, @RequestParam("id") int id, RedirectAttributes redirectAttributes, Model model) {
+    @GetMapping("/generarTickets")
+    public String generarTicket(
+            @RequestParam(name = "productName", required = true) int productName,
+            @RequestParam(name = "email", required = true) String email,
+            Model model) {
         try {
             String complicatedString = passwordGenerator.generatePassword(20); // Cambia 20 por la longitud deseada
+            model.addAttribute("productName", productName);
+
+
+            model.addAttribute("email", email);
+
+            //PRINTAR
+            System.out.println("productName: " + productName);
+            System.out.println("email: " + email);
 
             Tickets newTicket = new Tickets();
             newTicket.setTicketId(complicatedString);
-            newTicket.setUserDni(DNI);
-            newTicket.setPartitId(id);
 
-            ticketsRepository.save(newTicket);
+            newTicket.setPartitId(productName);
+
+            //ticketsRepository.save(newTicket);
 
             String qrCode = qrCodeService.getQRCode(complicatedString);
             model.addAttribute("qrcode", qrCode);
 
         } catch (Exception e) {
             String error = "No s'ha pogut generar el ticket";
-            redirectAttributes.addFlashAttribute("error", error);
         }
         return "mostrarQR";
     }
@@ -95,8 +106,6 @@ public class partitsController {
 
             return "mostrarPartits";
         }
-        System.out.println("Amount2:" + request.getAmount());
-        System.out.println("Amount3:" + amount);
 
         model.addAttribute("publicKey", publicKey);
         model.addAttribute("amount", request.getAmount());
