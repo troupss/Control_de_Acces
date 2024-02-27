@@ -5,7 +5,6 @@ import com.crni99.qrcodegenerator.repository.UsuarisRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -54,12 +53,11 @@ public class usuariController {
                 session.setAttribute("usuarioLogueado", usuario);
                 return "redirect:/usuaris";
             }else{
-                model.addAttribute("error", "Usuario o contraseña incorrectos");
+                model.addAttribute("error", "Els credencials introduits no son correctes. Sisplau, torna-ho a provar");
                 return "loguejarUsuaris";
 
             }
-        }
-        model.addAttribute("error", "Usuario o contraseña incorrectos");
+        }model.addAttribute("error", "Els credencials introduits no son correctes. Sisplau, torna-ho a provar");
         return "loguejarUsuaris";
     }
 }
