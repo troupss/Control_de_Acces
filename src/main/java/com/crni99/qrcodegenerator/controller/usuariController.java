@@ -60,6 +60,20 @@ public class usuariController {
         }model.addAttribute("error", "Els credencials introduits no son correctes. Sisplau, torna-ho a provar");
         return "loguejarUsuaris";
     }
+
+    @GetMapping("/login/guest")
+    public String loginAsGuest(HttpSession session) {
+        // Lógica para iniciar sesión como invitado (podrías generar un usuario temporal)
+        // Aquí un ejemplo básico de cómo podrías hacerlo
+        Usuaris usuarioInvitado = new Usuaris();
+        usuarioInvitado.setDni("invitat");
+        usuarioInvitado.setPassword("invitat123"); // Contraseña temporal
+        usuarioInvitado.setNom("Invitat");
+        // Guardar el usuario invitado en la sesión
+        session.setAttribute("usuariLoguejat", usuarioInvitado);
+        // Redirigir al usuario a la página de tickets
+        return "redirect:/partits";
+    }
 }
 
 
