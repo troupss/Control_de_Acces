@@ -53,7 +53,7 @@ public class usuariController {
                 session.setAttribute("usuarioLogueado", usuario);
                 return "redirect:/usuaris";
             }else{
-                model.addAttribute("error", "Els  credencials introduits no son correctes. Sisplau, torna-ho a provar");
+                model.addAttribute("error", "Els credencials introduits no son correctes. Sisplau, torna-ho a provar");
                 return "loguejarUsuaris";
 
             }
@@ -73,6 +73,14 @@ public class usuariController {
         session.setAttribute("usuariLoguejat", usuarioInvitado);
         // Redirigir al usuario a la página de tickets
         return "redirect:/partits";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        // Invalidar la sesión para cerrar la sesión del usuario
+        session.invalidate();
+        // Redirigir a la página de inicio o a donde desees después de cerrar sesión
+        return "redirect:/login";
     }
 }
 

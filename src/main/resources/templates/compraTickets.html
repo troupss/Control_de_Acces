@@ -147,6 +147,33 @@
         #partidoTitulo {
             color: #000000;
         }
+        .contenido-derecha {
+            float: right; /* Alinea el contenido a la derecha */
+            margin-bottom: 5px; /* Ajusta el margen superior según sea necesario */
+        }
+
+        .contenido-derecha p,
+        .contenido-derecha form,
+        .contenido-derecha a {
+            margin: 0; /* Elimina los márgenes internos */
+            display: inline-block; /* Permite alinear los elementos horizontalmente */
+            vertical-align: middle; /* Alinea verticalmente los elementos */
+        }
+
+        .contenido-derecha form button,
+        .contenido-derecha a {
+            background-color: #007bff; /* Color de fondo del botón o enlace */
+            color: #fff; /* Color del texto */
+            padding: 5px 10px; /* Ajusta el relleno del botón o enlace según sea necesario */
+            border: none; /* Elimina el borde */
+            border-radius: 3px; /* Añade bordes redondeados */
+            text-decoration: none; /* Elimina la subrayado del enlace */
+        }
+
+        .contenido-derecha form button:hover,
+        .contenido-derecha a:hover {
+            background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+        }
     </style>
 </head>
 
@@ -184,6 +211,23 @@
                     </li>
                 </div>
             </div>
+            <div class="contenido-derecha">
+                <!-- Verifica si hay un usuario logueado -->
+                <div th:if="${session.usuarioLogueado != null}">
+                    <!-- Muestra el nombre del usuario -->
+                    <p>Usuario logueado: <span th:text="${session.usuarioLogueado.nom}"></span>    </p>
+
+
+                    <!-- Botón para cerrar sesión -->
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit">Cerrar sesión</button>
+                    </form>
+                </div>
+
+                <!-- Si no hay un usuario logueado, muestra un enlace para iniciar sesión -->
+                <div th:unless="${session.usuarioLogueado != null}">
+                    <a href="/login">Iniciar sesión</a>
+                </div>
         </nav>
     </div>
 </header>
@@ -209,7 +253,6 @@
                 <input type="hidden" id="amount" class="amountInput" th:value="${partits.preu}" th:name="amount"/>
                 <input type="hidden" id="productName" class="productNameInput" th:value="${partits.id}" th:name="productName"/>
                 <br><br>
-
                 <button type="submit" class="comprarBtn">
                     <i class="fa-regular fa-credit-card"></i> Confirmar Compra
                 </button>
