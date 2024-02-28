@@ -53,7 +53,7 @@ public class usuariController {
                 session.setAttribute("usuarioLogueado", usuario);
                 return "redirect:/usuaris";
             }else{
-                model.addAttribute("error", "Els credencials introduits no son correctes. Sisplau, torna-ho a provar");
+                model.addAttribute("error", "Els  credencials introduits no son correctes. Sisplau, torna-ho a provar");
                 return "loguejarUsuaris";
 
             }
