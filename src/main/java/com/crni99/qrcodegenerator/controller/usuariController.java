@@ -59,7 +59,6 @@ public class usuariController {
 
             }
         }
-        model.addAttribute("error", "Usuario o contraseña incorrectos");
         return "loguejarUsuaris";
     }
 }
