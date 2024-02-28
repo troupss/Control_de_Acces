@@ -50,7 +50,9 @@
               <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
             </h4>
           </div>
+          <!-- Formulario de inicio de sesión -->
           <form id="loginForm" action="/iniciarSesion" method="post" onsubmit="return validarFormulario()">
+            <!-- Campos de entrada para DNI y contraseña -->
             <div class="form-group mb-3">
               <label for="dni">DNI:</label>
               <input type="text" class="form-control" id="dni" name="dni" required>
@@ -59,16 +61,25 @@
               <label for="password">Contraseña:</label>
               <input type="password" class="form-control" id="password" name="password" required>
             </div>
+            <!-- Enlace para registrarse -->
             <h class="text-center mt-3">¿No tienes cuenta? <a href="/register">Registrate</a></h>
+            <!-- Botón de inicio de sesión -->
             <div class="text-center mt-3">
               <button type="submit" class="btn btn-primary btn-login">
                 <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
               </button>
             </div>
           </form>
+          <!-- Mensaje de error -->
           <br>
           <div th:if="${error}" class="error-message alert alert-danger">
             <p th:text="${error}" class="error-text"></p>
+          </div>
+          <!-- Botón para iniciar sesión como invitado -->
+          <div class="text-center mt-3">
+            <a href="/login/guest" class="btn btn-outline-secondary">
+              <i class="fa-solid fa-bed"></i> Entrar como invitado
+            </a>
           </div>
         </div>
       </div>
