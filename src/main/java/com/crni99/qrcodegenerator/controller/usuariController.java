@@ -74,6 +74,14 @@ public class usuariController {
         // Redirigir al usuario a la página de tickets
         return "redirect:/partits";
     }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        // Invalidar la sesión para cerrar la sesión del usuario
+        session.invalidate();
+        // Redirigir a la página de inicio o a donde desees después de cerrar sesión
+        return "redirect:/login";
+    }
 }
 
 
