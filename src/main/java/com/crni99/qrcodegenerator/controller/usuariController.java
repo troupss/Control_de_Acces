@@ -24,6 +24,7 @@ public class usuariController {
             model.addAttribute("usuaris", usuaris);
             model.addAttribute("error", error);
             return "mostrarUsuaris";
+            
         } else {
             return "redirect:/login";
         }
