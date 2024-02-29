@@ -32,11 +32,14 @@ public class ticketsController {
         // Obtener el usuario logueado de la sesión
         Usuaris usuarioLogueado = (Usuaris) session.getAttribute("usuarioLogueado");
         if (usuarioLogueado != null) {
-            model.addAttribute("usuarioLogueado", usuarioLogueado); // Agregar el usuario logueado al modelo
+            System.out.println("El usuario logueado es: " + usuarioLogueado);
+            // Agregar el usuario logueado y su correo electrónico al modelo
+            model.addAttribute("usuarioLogueado", usuarioLogueado);
         }
 
         return "mostrarTickets";
     }
+
 
     @GetMapping("/mostrarQR/{id}")
     public String comprarTickets(@PathVariable("id") String id, Model model){

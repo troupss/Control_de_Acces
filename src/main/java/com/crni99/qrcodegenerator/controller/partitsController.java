@@ -4,6 +4,7 @@ import com.crni99.qrcodegenerator.config.PasswordGenerator;
 import com.crni99.qrcodegenerator.models.Partits;
 import com.crni99.qrcodegenerator.models.Request;
 import com.crni99.qrcodegenerator.models.Tickets;
+import com.crni99.qrcodegenerator.models.Usuaris;
 import com.crni99.qrcodegenerator.repository.PartitsRepository;
 import com.crni99.qrcodegenerator.repository.TicketsRepository;
 import com.crni99.qrcodegenerator.service.QRCodeService;
@@ -17,6 +18,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -54,7 +56,7 @@ public class partitsController {
     }
 
     @GetMapping("/Comprartickets/{id}")
-    public String comprarTickets(@PathVariable("id") int id, Model model){
+    public String comprarTickets(@PathVariable("id") int id, Model model, HttpSession session){
         try{
             Partits partits = repository.findById(id).get();
             //PAGO VERIFICAR
@@ -62,6 +64,16 @@ public class partitsController {
             //
             model.addAttribute("partits", partits);
             model.addAttribute("tickets", new Tickets());
+
+            // Obtener el usuario logueado de la sesión
+            Usuaris usuarioLogueado = (Usuaris) session.getAttribute("usuarioLogueado");
+            if (usuarioLogueado != null) {
+                System.out.println("El usuario logueado es: " + usuarioLogueado);
+                // Agregar el usuario logueado y su correo electrónico al modelo
+                model.addAttribute("usuarioLogueado", usuarioLogueado);
+                model.addAttribute("emailUsuarioLogueado", usuarioLogueado.getEmail());
+            }
+
         } catch (Exception e) {
             String error = "No s'ha pogut comprar el ticket amb id: " + id;
         }
