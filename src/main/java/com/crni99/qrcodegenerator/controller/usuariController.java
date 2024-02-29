@@ -55,6 +55,7 @@ public class usuariController {
             }else{
                 model.addAttribute("error", "Els credencials introduits no son correctes. Sisplau, torna-ho a provar");
                 return "loguejarUsuaris";
+
             }
         }model.addAttribute("error", "Els credencials introduits no son correctes. Sisplau, torna-ho a provar");
         return "loguejarUsuaris";

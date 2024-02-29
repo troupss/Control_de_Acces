@@ -29,6 +29,10 @@ public class Usuaris {
     @OneToMany(mappedBy = "usuarisByUserDni")
     private Collection<Tickets> ticketsByDni;
 
+    @Basic
+    @Column(name = "rango")
+    private String rango;
+
     public String getDni() {
         return dni;
     }
@@ -75,6 +79,14 @@ public class Usuaris {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRango() {
+        return rango;
+    }
+
+    public void setRango(String rango) {
+        this.rango = rango;
     }
 
     @Override
