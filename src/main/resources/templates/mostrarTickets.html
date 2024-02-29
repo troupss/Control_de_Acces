@@ -107,7 +107,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav1">
         <div class="navbar-nav">
-          <li>
+          <li th:if="${session.usuarioLogueado != null and session.usuarioLogueado.rango eq 'admin'}">
             <a class="nav-link" href="/usuaris">
               <i class="fa-solid fa-user-tie"></i> Socis
             </a>
@@ -122,7 +122,7 @@
               <i class="fas fa-ticket-alt"></i> Tickets
             </a>
           </li>
-          <li class="nav-item">
+          <li th:if="${session.usuarioLogueado != null and session.usuarioLogueado.rango eq 'admin'}">
             <a class="nav-link" href="/decode">
               <i class="fas fa-qrcode"></i> Scanner
             </a>
