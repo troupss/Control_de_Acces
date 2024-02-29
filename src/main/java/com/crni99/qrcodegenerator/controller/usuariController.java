@@ -17,11 +17,16 @@ public class usuariController {
     }
 
     @GetMapping("/usuaris")
-    public String getUsuaris(Model model, @RequestParam(name = "error", required = false) String error) {
-        List<Usuaris> usuaris = repository.findAll();
-        model.addAttribute("usuaris", usuaris);
-        model.addAttribute("error", error);
-        return "mostrarUsuaris";
+    public String getUsuaris(Model model, @RequestParam(name = "error", required = false) String error, HttpSession session) {
+        Usuaris usuarioLogueado = (Usuaris) session.getAttribute("usuarioLogueado");
+        if (usuarioLogueado != null && "admin".equals(usuarioLogueado.getRango())) {
+            List<Usuaris> usuaris = repository.findAll();
+            model.addAttribute("usuaris", usuaris);
+            model.addAttribute("error", error);
+            return "mostrarUsuaris";
+        } else {
+            return "redirect:/login";
+        }
     }
 
     @GetMapping("/register")
@@ -46,19 +51,14 @@ public class usuariController {
 
     @PostMapping("/iniciarSesion")
     public String iniciarSesion(@RequestParam("dni") String dni, @RequestParam("password") String password, Model model, HttpSession session) {
-
         Usuaris usuario = repository.findByDni(dni);
-        if (usuario != null) {
-            if (usuario.getPassword().equals(password)) {
-                session.setAttribute("usuarioLogueado", usuario);
-                return "redirect:/usuaris";
-            }else{
-                model.addAttribute("error", "Els credencials introduits no son correctes. Sisplau, torna-ho a provar");
-                return "loguejarUsuaris";
-
-            }
-        }model.addAttribute("error", "Els credencials introduits no son correctes. Sisplau, torna-ho a provar");
-        return "loguejarUsuaris";
+        if (usuario != null && usuario.getPassword().equals(password)) {
+            session.setAttribute("usuarioLogueado", usuario);
+            return "redirect:/partits";
+        } else {
+            model.addAttribute("error", "Los credenciales introducidos no son correctos. Por favor, inténtalo de nuevo.");
+            return "loguejarUsuaris";
+        }
     }
 
     @GetMapping("/login/guest")
