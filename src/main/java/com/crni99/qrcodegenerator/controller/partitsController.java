@@ -69,7 +69,9 @@ public class partitsController {
             Usuaris usuarioLogueado = (Usuaris) session.getAttribute("usuarioLogueado");
             if (usuarioLogueado != null) {
                 System.out.println("El usuario logueado es: " + usuarioLogueado);
-                // Agregar el usuario logueado y su correo electrónico al modelo
+                //Agregar la variable id del partido a una variable a la session
+                session.setAttribute("idPartit", id);
+
                 model.addAttribute("usuarioLogueado", usuarioLogueado);
                 model.addAttribute("emailUsuarioLogueado", usuarioLogueado.getEmail());
             }
@@ -82,26 +84,27 @@ public class partitsController {
 
     @GetMapping("/generarTickets")
     public String generarTicket(
-            @RequestParam(name = "productName", required = true) int productName,
-            @RequestParam(name = "email", required = true) String email,
-            Model model) {
+            @RequestParam(name = "payment_intent", required = true) String paymentIntent,
+            @RequestParam(name = "payment_intent_client_secret", required = true) String paymentIntentClientSecret,
+            @RequestParam(name = "redirect_status", required = true) String redirectStatus,
+            Model model, HttpSession session) {
         try {
             String complicatedString = passwordGenerator.generatePassword(20); // Cambia 20 por la longitud deseada
-            model.addAttribute("productName", productName);
 
+            System.out.println("Payment Intent: " + paymentIntent);
+            System.out.println("Payment Intent Client Secret: " + paymentIntentClientSecret);
+            System.out.println("Redirect Status: " + redirectStatus);
 
-            model.addAttribute("email", email);
-
-            //PRINTAR
-            System.out.println("productName: " + productName);
-            System.out.println("email: " + email);
+            //Obtener el dni y el partit id de la session
+            String dni = (String) session.getAttribute("dniUsuari");
+            int partitId = (int) session.getAttribute("idPartit");
 
             Tickets newTicket = new Tickets();
             newTicket.setTicketId(complicatedString);
+            newTicket.setPartitId(partitId);
+            newTicket.setUserDni(dni);
 
-            newTicket.setPartitId(productName);
-
-            //ticketsRepository.save(newTicket);
+            ticketsRepository.save(newTicket);
 
             String qrCode = qrCodeService.getQRCode(complicatedString);
             model.addAttribute("qrcode", qrCode);

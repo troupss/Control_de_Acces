@@ -54,6 +54,8 @@ public class usuariController {
         Usuaris usuario = repository.findByDni(dni);
         if (usuario != null && usuario.getPassword().equals(password)) {
             session.setAttribute("usuarioLogueado", usuario);
+            session.setAttribute("dniUsuari", dni);
+
             return "redirect:/partits";
         } else {
             model.addAttribute("error", "Los credenciales introducidos no son correctos. Por favor, inténtalo de nuevo.");
@@ -63,7 +65,6 @@ public class usuariController {
 
     @GetMapping("/login/guest")
     public String loginAsGuest(HttpSession session) {
-        // Lógica para iniciar sesión como invitado (podrías generar un usuario temporal)
         // Aquí un ejemplo básico de cómo podrías hacerlo
         Usuaris usuarioInvitado = new Usuaris();
         usuarioInvitado.setDni("invitat");
