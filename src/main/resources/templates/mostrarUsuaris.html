@@ -151,47 +151,51 @@
         </nav>
     </div>
 </header>
-<div class="content-container">
+<div class="content-container" th:if="${session.usuarioLogueado != null and session.usuarioLogueado.rango == 'admin'}">
     <img class="background-image" src='https://t4.ftcdn.net/jpg/06/20/79/97/360_F_620799725_sZID7kAlK4fNnlEYSCB0OTgpPiNhVrOP.jpg' alt='Fondo desenfocado'>
     <h1>Socis <i class="fa-regular fa-id-card"></i></h1>
-</div>
 
-<br><br>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-10 mt-5 mb-5">
-            <div th:if="${error}" class="alert alert-danger">
-                <p th:text="${error}"></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mt-5 mb-5">
+                <div th:if="${error}" class="alert alert-danger">
+                    <p th:text="${error}"></p>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="table1" class="table table-bordered" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th>DNI</th>
+                            <th>Nom</th>
+                            <th>Cognoms</th>
+                            <th>Correu</th>
+                            <th>Telefono</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="usuari : ${usuaris}">
+                            <td th:text="${usuari.dni}"></td>
+                            <td th:text="${usuari.nom}"></td>
+                            <td th:text="${usuari.cognom}"></td>
+                            <td th:text="${usuari.email}"></td>
+                            <td th:text="${usuari.numeroTelefono}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <script>
+                    new DataTable('#table1');
+                </script>
             </div>
-
-            <div class="table-responsive">
-                <table id="table1" class="table table-bordered" style="width: 100%">
-                    <thead>
-                    <tr>
-                        <th>DNI</th>
-                        <th>Nom</th>
-                        <th>Cognoms</th>
-                        <th>Correu</th>
-                        <th>Telefono</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="usuari : ${usuaris}">
-                        <td th:text="${usuari.dni}"></td>
-                        <td th:text="${usuari.nom}"></td>
-                        <td th:text="${usuari.cognom}"></td>
-                        <td th:text="${usuari.email}"></td>
-                        <td th:text="${usuari.numeroTelefono}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <script>
-                new DataTable('#table1');
-            </script>
         </div>
     </div>
+</div>
+
+<!-- Si l'usuari no té permís d'administrador -->
+<div class="content-container" th:if="${session.usuarioLogueado != null and session.usuarioLogueado.rango != 'admin'}">
+    <p>No tens permís per accedir a aquesta pàgina.</p>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
