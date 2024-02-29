@@ -58,6 +58,12 @@ public class partitsController {
     @GetMapping("/Comprartickets/{id}")
     public String comprarTickets(@PathVariable("id") int id, Model model, HttpSession session){
         try{
+            // Verificar si el usuario está autenticado
+            Usuaris usuarioLogueado = (Usuaris) session.getAttribute("usuarioLogueado");
+            if (usuarioLogueado == null) {
+                // Si no está autenticado, redirigir a la página de inicio de sesión
+                return "redirect:/login";
+            }
             Partits partits = repository.findById(id).get();
             //PAGO VERIFICAR
             model.addAttribute("request", new Request());
