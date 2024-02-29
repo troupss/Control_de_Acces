@@ -71,8 +71,6 @@ public class partitsController {
             model.addAttribute("partits", partits);
             model.addAttribute("tickets", new Tickets());
 
-            // Obtener el usuario logueado de la sesión
-            Usuaris usuarioLogueado = (Usuaris) session.getAttribute("usuarioLogueado");
             if (usuarioLogueado != null) {
                 System.out.println("El usuario logueado es: " + usuarioLogueado);
                 //Agregar la variable id del partido a una variable a la session
