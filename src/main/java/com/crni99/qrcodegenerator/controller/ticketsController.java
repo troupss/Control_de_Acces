@@ -25,20 +25,19 @@ public class ticketsController {
     }
     @GetMapping("/tickets")
     public String getTickets(Model model, @RequestParam(name = "error", required = false) String error, HttpSession session) {
-        List<Tickets> tickets = repository.findAll();
-        model.addAttribute("tickets", tickets);
-        model.addAttribute("error", error);
-
         // Obtener el usuario logueado de la sesión
         Usuaris usuarioLogueado = (Usuaris) session.getAttribute("usuarioLogueado");
-        if (usuarioLogueado != null) {
-            System.out.println("El usuario logueado es: " + usuarioLogueado);
-            // Agregar el usuario logueado y su correo electrónico al modelo
-            model.addAttribute("usuarioLogueado", usuarioLogueado);
-        }
+
+        List<Tickets> tickets = repository.findAll();
+
+        // Add tickets and other attributes to the model
+        model.addAttribute("tickets", tickets);
+        model.addAttribute("error", error);
+        model.addAttribute("usuarioLogueado", usuarioLogueado);
 
         return "mostrarTickets";
     }
+
 
 
     @GetMapping("/mostrarQR/{id}")
